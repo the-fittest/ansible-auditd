@@ -1,0 +1,36 @@
+{
+  "name": "ansible-auditd",
+  "version": "1.0.0",
+  "description": "A role to setup auditd",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://github.com/the-fittest/ansible-auditd.git"
+  },
+  "author": "Alexander Jaeger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/the-fittest/ansible-auditd/issues"
+  },
+  "homepage": "https://github.com/the-fittest/ansible-auditd#readme",
+  "scripts": {
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "precommit": "yamllint -c ./.yamllint . && ansible-lint -R -r ./node_modules/ansible-lint-rules/rules . || exit 1",
+    "develop": "nodemon"
+  },
+  "commitlint": {
+    "extends": [
+      "./node_modules/@commitlint/config-conventional"
+    ]
+  },
+  "nodemonConfig": {
+    "exec": "yamllint -c ./.yamllint . && ansible-lint -R -r ./node_modules/ansible-lint-rules/rules . || exit 1",
+    "ext": "yml"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^6.1.2",
+    "@commitlint/config-conventional": "^6.1.2",
+    "husky": "^0.14.3",
+    "nodemon": "^1.17.1",
+    "ansible-lint-rules": "^1.0.1"
+  }
+}
