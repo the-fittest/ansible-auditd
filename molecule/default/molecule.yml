@@ -15,13 +15,6 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     docker_ssl_version: SSLv23
-  - name: ansible-auditd-1604
-    image: brandfrisch/ubuntu-16.04
-    command: /sbin/init
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    docker_ssl_version: SSLv23
 provisioner:
   name: ansible
   options:

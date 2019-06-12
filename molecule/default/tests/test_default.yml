@@ -1,2 +1,12 @@
 ---
 # default file for ansible-auditd
+package:
+  auditd:
+    installed: true
+service:
+  auditd:
+    enabled: true
+    running: true
+process:
+  auditd:
+    running: true

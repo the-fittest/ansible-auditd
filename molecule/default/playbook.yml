@@ -1,5 +1,10 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    auditd_rules_files:
+      - audit.rules.j2
+    auditd_config_files:
+      - tests/templates/auditd.conf.j2
   roles:
     - role: ansible-auditd

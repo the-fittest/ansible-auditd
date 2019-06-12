@@ -1,2 +1,53 @@
 ---
 # tasks file for ansible-auditd
+
+- name: Install auditd
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ auditd_packages }}"
+    - "{{ auditd_additional_packages }}"
+
+- name: Add audit configs
+  template:
+    src: "{{ item }}"
+    dest: "/etc/audit/{{ item | basename | replace('.j2', '') }}"
+    owner: root
+    group: root
+    mode: 0640
+  with_items:
+    - "{{ auditd_config_files }}"
+  notify: restart auditd
+
+- name: Add audit rules
+  template:
+    src: "{{ item }}"
+    dest: "/etc/audit/rules.d/{{ item | basename | replace('.j2', '') }}"
+    owner: root
+    group: root
+    mode: 0640
+  with_items:
+    - "{{ auditd_rules_files }}"
+  notify: restart auditd
+
+- name: Is Grub installed?
+  stat:
+    path: /etc/default/grub
+  register: grub
+
+- name: Ensure auditing is set in grub
+  when: auditd_is_enabled_in_grub and grub.stat.exists
+  lineinfile:
+    path: "/etc/default/grub"
+    regexp: '^GRUB_CMDLINE_LINUX='
+    line: 'GRUB_CMDLINE_LINUX="audit=1"'
+    owner: root
+    group: root
+    mode: 0644
+  notify: update grub
+
+- name: Start auditd
+  service:
+    name: auditd
+    state: started

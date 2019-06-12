@@ -1,2 +1,14 @@
 ---
 # defaults file for ansible-auditd
+auditd_is_enabled_in_grub: true
+
+auditd_rules_files:
+  - audit.rules.j2
+
+auditd_config_files:
+  - auditd.conf.j2
+
+auditd_packages:
+  - auditd
+
+auditd_additional_packages: []

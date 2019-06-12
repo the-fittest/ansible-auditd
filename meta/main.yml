@@ -10,7 +10,5 @@ galaxy_info:
       versions:
         # 18.04
         - bionic
-        # 16.04
-        - xenial
   galaxy_tags: []
 dependencies: []
